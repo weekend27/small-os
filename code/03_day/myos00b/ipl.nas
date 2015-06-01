@@ -71,13 +71,13 @@ putloop:
 		CMP		AL,0
 		JE		fin
 		MOV		AH,0x0e			; 显示一个文字
-		MOV		BX,15			; 指定字符颜色
+		MOV		BX,10			; 指定字符颜色
 		INT		0x10			; 调用显卡BIOS
 		JMP		putloop
 
 msg:
 		DB		0x0a, 0x0a		; 换行2次
-		DB		"03_day_myos00a. weekend && yogurt."
+		DB		"load error"
 		DB		0x0a			; 再次换行
 		DB		0
 
