@@ -34,20 +34,24 @@ entry:
 		MOV		SP,0x7c00
 		MOV		DS,AX
 
-; myos00a新增加的部分
+; 读磁盘
 
 		MOV 	AX,0x0820
 		MOV		ES,AX
 		MOV		CH,0			; 柱面0
 		MOV		DH,0			; 磁头0
 		MOV		CL,2			; 扇区2
-
 		MOV		AH,0x02			; 读盘
 		MOV		AL,1			; 1个扇区
 		MOV		BX,0
 		MOV		DL,0x00			; A驱动器
 		INT		0x13			; 调用磁盘BIOS
 		JC		error
+
+;以下代码顺序不可以随便变换
+fin:
+		HLT						; 让CPU停止，等待指令
+		JMP		fin				; 无限循环
 
 error:
 		MOV     SI,msg
@@ -61,13 +65,10 @@ putloop:
 		MOV		BX,15			; 指定字符颜色
 		INT		0x10			; 调用显卡BIOS
 		JMP		putloop
-fin:
-		HLT						; 让CPU停止，等待指令
-		JMP		fin				; 无限循环
-
+		
 msg:
 		DB		0x0a, 0x0a		; 换行2次
-		DB		"03_day_myos00a. weekend && yogurt."
+		DB		"load error"
 		DB		0x0a			; 再次换行
 		DB		0
 
