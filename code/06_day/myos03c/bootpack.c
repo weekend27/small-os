@@ -10,11 +10,11 @@ void HariMain(void){
 	char s[50], mcursor[256];
 	int mx, my;
 	
+	init_gdtidt();
+	
 	init_palette();
 	init_screen(binfo->vram, binfo->scrnx, binfo->scrny);
-	
-	//先将鼠标位置放在窗口中央
-	mx = (binfo->scrnx - 16) / 2;
+	mx = (binfo->scrnx - 16) / 2;	//先将鼠标位置放在窗口中央
 	my = (binfo->scrny - 28 - 16) / 2;
 	
 	init_mouse_cursor8(mcursor, COL8_008484);
