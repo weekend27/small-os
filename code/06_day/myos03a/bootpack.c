@@ -68,6 +68,8 @@ void HariMain(void){
 	char s[50], mcursor[256];
 	int mx, my;
 	
+	init_gdtidt();
+	
 	init_palette();
 	init_screen(binfo->vram, binfo->scrnx, binfo->scrny);
 	
