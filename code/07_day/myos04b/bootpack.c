@@ -27,7 +27,17 @@ void HariMain(void){
 	io_out8(PIC1_IMR, 0xef); /* マウスを許可(11101111) */
 	
 	for(;;){
-		io_hlt();
+		io_cli();				//先去屏蔽中断
+		if(keybuf.flag == 0){	//flag是0说明键没有被按下
+			io_stihlt();
+		}else{
+			i = keybuf.data;	//先将键码保存起来，后面有中断进来也不怕，哈哈哈
+			keybuf.flag = 0;
+			io_sti();			//重新开放中断
+			sprintf(s, "%02X", i);
+			boxfill8(binfo->vram, binfo->scrnx, COL8_008484, 0, 16, 15, 31);
+			putfonts8_asc(binfo->vram, binfo->scrnx, 0, 16, COL8_FFFFFF, s);
+		}
 	}
 }
 
