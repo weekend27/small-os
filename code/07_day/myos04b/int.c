@@ -24,7 +24,6 @@ void init_pic(void){
 	return;
 }
 
-
 #define PORT_KEYDAT		0x0060
 
 struct KEYBUF keybuf;
