@@ -35,7 +35,7 @@ struct KEYBUF keybuf;
 void inthandler21(int *esp){
 	
 	unsigned char data;
-	io_out8(PIC_OCW2,0x61);			/* 通知PIC IRQ-01已经受理完毕 */
+	io_out8(PIC0_OCW2,0x61);			/* 通知PIC IRQ-01已经受理完毕 */
 	data = io_in8(PORT_KEYDAT);
 	if(keybuf.flag == 0){
 		keybuf.data = data;
